@@ -1,0 +1,96 @@
+hash: c7f93e5428dd6623afa66934ba893ea68dde7420ebc508f208191a9e9a726663
+updated: 2016-09-29T21:55:04.661721597+01:00
+imports:
+- name: github.com/andybalholm/cascadia
+  version: 1c31af6f6c1a7b101ed05aacc7d8a738b43ae86e
+- name: github.com/carlescere/scheduler
+  version: 5e2cc370dae40237c2a08b9181d4c84faf4150e9
+- name: github.com/cavaliercoder/grab
+  version: 2e3d93bfd60c32b49139f0f4175d457d726d0ea8
+- name: github.com/codegangsta/inject
+  version: 33e0aa1cb7c019ccc3fbe049a8262a6403d30504
+- name: github.com/codeskyblue/go-sh
+  version: ceb46ec4630a726eeed51d0a70066c9e1102c48f
+- name: github.com/fsnotify/fsnotify
+  version: f12c6236fe7b5cf6bcf30e5935d08cb079d78334
+- name: github.com/garyburd/redigo
+  version: ffa8d46ada782d81cfda81a0fbd9f45ceae448e8
+  subpackages:
+  - redis
+  - internal
+- name: github.com/gocraft/work
+  version: 8aaf0188a943df358f7a09ce48aff0f2318efb5b
+- name: github.com/hashicorp/hcl
+  version: ef8133da8cda503718a74741312bf50821e6de79
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/token
+  - json/parser
+  - hcl/scanner
+  - hcl/strconv
+  - json/scanner
+  - json/token
+- name: github.com/kr/fs
+  version: 2788f0dbd16903de03cb8186e5c7d97b69ad387b
+- name: github.com/magiconair/properties
+  version: 0723e352fa358f9322c938cc2dadda874e9151a9
+- name: github.com/mitchellh/mapstructure
+  version: ca63d7c062ee3c9f34db231e352b60012b4fd0c1
+- name: github.com/olebedev/emitter
+  version: 3e7ff9ab9e1ca04c4bd78354ca4c2bc5f6725f90
+- name: github.com/otium/ytdl
+  version: 1745da3ae7a6a2a08f8f14aa33c32083e73ab364
+- name: github.com/pelletier/go-buffruneio
+  version: df1e16fde7fc330a0ca68167c23bf7ed6ac31d6d
+- name: github.com/pelletier/go-toml
+  version: 45932ad32dfdd20826f5671da37a5f3ce9f26a8d
+- name: github.com/pkg/errors
+  version: 645ef00459ed84a119197bfb8d8205042c6df63d
+- name: github.com/pkg/sftp
+  version: 8197a2e580736b78d704be0fc47b2324c0591a32
+- name: github.com/PuerkitoBio/goquery
+  version: 152b1a2c8f5d0340f658bb656032a39b94e52958
+- name: github.com/robfig/cron
+  version: 9585fd555638e77bba25f25db5c44b41f264aeb7
+- name: github.com/Sirupsen/logrus
+  version: 3ec0642a7fb6488f65b06f9040adc67e3990296a
+- name: github.com/spf13/afero
+  version: 52e4a6cfac46163658bd4f123c49b6ee7dc75f78
+  subpackages:
+  - mem
+  - sftp
+- name: github.com/spf13/cast
+  version: 2580bc98dc0e62908119e4737030cc2fdfc45e4c
+- name: github.com/spf13/cobra
+  version: 9c28e4bbd74e5c3ed7aacbc552b2cab7cfdfe744
+- name: github.com/spf13/jwalterweatherman
+  version: 33c24e77fb80341fe7130ee7c594256ff08ccc46
+- name: github.com/spf13/pflag
+  version: c7e63cf4530bcd3ba943729cee0efeff2ebea63f
+- name: github.com/spf13/viper
+  version: 382f87b929b84ce13e9c8a375a4b217f224e6c65
+- name: golang.org/x/crypto
+  version: a20de3fa94e069ec699987416679230d72e030a3
+  subpackages:
+  - ssh
+  - curve25519
+  - ed25519
+  - ed25519/internal/edwards25519
+- name: golang.org/x/net
+  version: 8058fc7b18f8794d9fc57eee98d64fe2c750e3f1
+  subpackages:
+  - html
+  - html/atom
+- name: golang.org/x/sys
+  version: 8f0908ab3b2457e2e15403d3697c9ef5cb4b57a9
+  subpackages:
+  - unix
+- name: golang.org/x/text
+  version: a7c023693a94aedd6b6df43ae7526bfe9d2b7d22
+  subpackages:
+  - transform
+  - unicode/norm
+- name: gopkg.in/yaml.v2
+  version: a5b47d31c556af34a302ce5d659e6fea44d90de0
+devImports: []

@@ -1,0 +1,8 @@
+package: github.com/osiloke/mybox
+import:
+- package: github.com/carlescere/scheduler
+- package: github.com/otium/ytdl
+- package: github.com/gocraft/work
+- package: github.com/cavaliercoder/grab
+- package: github.com/codeskyblue/go-sh
+- package: github.com/olebedev/emitter
