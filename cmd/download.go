@@ -20,6 +20,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var secondsLater int64
+
 // downloadCmd represents the download command
 var downloadCmd = &cobra.Command{
 	Use:   "download",
@@ -42,7 +44,7 @@ var downloadCmd = &cobra.Command{
 			},
 		}
 		enqueuer := work.NewEnqueuer("mybox", redisPool)
-		job, err := enqueuer.EnqueueUnique("download_url", work.Q{"url": args[0]}) // job returned
+		job, err := enqueuer.EnqueueUniqueIn("download_url", secondsLater, work.Q{"url": args[0]}) // job returned
 		if err != nil {
 			println(err.Error())
 		} else {
@@ -63,6 +65,6 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// downloadCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	downloadCmd.Flags().Int64VarP(&secondsLater, "seconds", "s", 300, "Delay download")
 
 }

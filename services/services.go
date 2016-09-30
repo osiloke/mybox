@@ -5,6 +5,7 @@ import (
 	"github.com/carlescere/scheduler"
 	"github.com/garyburd/redigo/redis"
 	"github.com/gocraft/work"
+	"github.com/olebedev/emitter"
 	"github.com/osiloke/dostow-contrib/store"
 	"os"
 	"os/signal"
@@ -15,9 +16,10 @@ var redisPool *redis.Pool
 
 type Context struct {
 	stow store.Dostow
+	e    *emitter.Emitter
 }
 
-func Run(dostow map[string]string, namespace, host, port string) {
+func Run(dostow map[string]string, namespace, host, port, shutoffTime string) {
 	stow := store.NewStore(dostow["api"], dostow["key"])
 	redisPool = &redis.Pool{
 		MaxActive: 5,
@@ -32,13 +34,14 @@ func Run(dostow map[string]string, namespace, host, port string) {
 	// 10 is the max concurrency
 	// "my_app_namespace" is the Redis namespace
 	// redisPool is a Redis pool
-	pool := work.NewWorkerPool(Context{stow}, 10, namespace, redisPool)
+	e := &emitter.Emitter{}
+	pool := work.NewWorkerPool(Context{stow, e}, 10, namespace, redisPool)
 
 	// Add middleware that will be executed for each job
 	pool.Middleware((*Context).Log)
 
 	// Map the name of jobs to handler functions
-	pool.Job("download_url", (*Context).DownloadUrl)
+	pool.JobWithOptions("download_url", work.JobOptions{MaxFails: 1}, (*Context).DownloadUrl)
 
 	// // Customize options:
 	// pool.JobWithOptions("export", JobOptions{Priority: 10, MaxFails: 1}, (*Context).Export)
@@ -49,7 +52,8 @@ func Run(dostow map[string]string, namespace, host, port string) {
 	stopAll := make(chan bool, 1)
 	finish := make(chan bool, 1)
 
-	scheduler.Every().Day().At("06:00").Run(func() {
+	scheduler.Every().Day().At(shutoffTime).Run(func() {
+		<-e.Emit("action", "stop")
 		stopAll <- true
 	})
 	// Wait for a signal to quit:
@@ -69,6 +73,8 @@ func Run(dostow map[string]string, namespace, host, port string) {
 		}
 	}()
 	<-finish
+	println("finish")
+	e.Off("*")
 	pool.Stop()
 }
 func (c *Context) Log(job *work.Job, next work.NextMiddlewareFunc) error {

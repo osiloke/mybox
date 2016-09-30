@@ -21,7 +21,7 @@ import (
 )
 
 var (
-	api, key, host, port string
+	api, key, host, port, offTime string
 )
 
 // serviceCmd represents the service command
@@ -38,7 +38,7 @@ var serviceCmd = &cobra.Command{
 				"key": key,
 			},
 			"mybox",
-			host, port)
+			host, port, offTime)
 	},
 }
 
@@ -54,6 +54,7 @@ func init() {
 	serviceCmd.Flags().StringVarP(&key, "key", "k", "8b69af27-4fae-46a2-a1ad-f74744ee9de2", "key")
 	serviceCmd.Flags().StringVarP(&host, "redis-host", "e", "localhost", "redis host")
 	serviceCmd.Flags().StringVarP(&port, "redis-port", "p", "6379", "redis port")
+	serviceCmd.Flags().StringVarP(&offTime, "off", "f", "06:00", "shutoff time")
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// serviceCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
