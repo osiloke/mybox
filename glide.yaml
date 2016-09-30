@@ -6,3 +6,4 @@ import:
 - package: github.com/cavaliercoder/grab
 - package: github.com/codeskyblue/go-sh
 - package: github.com/olebedev/emitter
+- package: github.com/jinzhu/now

@@ -17,10 +17,13 @@ package cmd
 import (
 	"github.com/garyburd/redigo/redis"
 	"github.com/gocraft/work"
+	"github.com/jinzhu/now"
 	"github.com/spf13/cobra"
+	"time"
 )
 
-var secondsLater int64
+var secondsLater float64
+var startAt string
 
 // downloadCmd represents the download command
 var downloadCmd = &cobra.Command{
@@ -44,7 +47,29 @@ var downloadCmd = &cobra.Command{
 			},
 		}
 		enqueuer := work.NewEnqueuer("mybox", redisPool)
-		job, err := enqueuer.EnqueueUniqueIn("download_url", secondsLater, work.Q{"url": args[0]}) // job returned
+		var (
+			job interface{}
+			err error
+		)
+		if startAt != "" {
+			t, err := now.Parse(startAt)
+			if err != nil {
+				println(err.Error())
+				return
+			}
+			ct := time.Now()
+			if t.After(ct) {
+				diff := t.Sub(ct)
+				secondsLater = diff.Seconds()
+			} else {
+				println(t.String())
+				println("can't schedule download in the past")
+				return
+			}
+			job, err = enqueuer.EnqueueUniqueIn("download_url", int64(secondsLater), work.Q{"startAt": t, "url": args[0]}) // job returned
+		} else {
+			job, err = enqueuer.EnqueueUnique("download_url", work.Q{"url": args[0]})
+		}
 		if err != nil {
 			println(err.Error())
 		} else {
@@ -65,6 +90,7 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	downloadCmd.Flags().Int64VarP(&secondsLater, "seconds", "s", 300, "Delay download")
+
+	downloadCmd.Flags().StringVarP(&startAt, "startAt", "s", "", "Start download at future time")
 
 }
